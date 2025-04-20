@@ -1,0 +1,20 @@
+/* Hiệu ứng hover cho link */
+.ant-footer a:hover {
+    color: #1890ff !important;
+    transition: color 0.3s ease;
+  }
+  
+  /* Responsive cho mobile */
+  @media (max-width: 768px) {
+    .ant-footer {
+      padding: 16px 24px !important;
+    }
+    
+    .ant-footer .ant-space {
+      width: 100%;
+    }
+    
+    .ant-footer .ant-space-item {
+      margin-bottom: 8px;
+    }
+  }
