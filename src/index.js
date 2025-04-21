@@ -4,7 +4,7 @@ import App from './App';
 
 // CHỈ render App, KHÔNG bọc BrowserRouter ở đây
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>
+  // {/* </React.StrictMode> */}
 );
