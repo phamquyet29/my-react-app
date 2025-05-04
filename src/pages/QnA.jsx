@@ -170,128 +170,17 @@ const QnA = () => {
       style={{
         display: "flex",
         minHeight: "100vh",
-        backgroundColor: theme === "dark" ? "#141414" : "#f5f5f5",
         padding: "20px",
         gap: "20px",
+        border: "1px solid #e8e8e8",
       }}
     >
-      {/* Sidebar Menu */}
-      <div style={{ width: "250px", flexShrink: 0 }}>
-        <Card
-          loading={false}
-          style={{
-            height: "100%",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "16px",
-            }}
-          >
-            <Text
-              strong
-              style={{ color: theme === "dark" ? "#1F1F1F" : "#d9d9d9" }}
-            >
-              Danh mục
-            </Text>
-            <Switch
-              checked={theme === "dark"}
-              onChange={changeTheme}
-              checkedChildren="🌙"
-              unCheckedChildren="☀️"
-              style={{ background: theme === "dark" ? "#1890ff" : "#d9d9d9" }}
-            />
-          </div>
-          <Menu
-            theme={theme}
-            onClick={handleMenuClick}
-            defaultOpenKeys={["sub1"]}
-            selectedKeys={[currentMenu]}
-            mode="inline"
-            items={menuItems}
-            style={{ borderRight: 0 }}
-          />
-        </Card>
-      </div>
-
-      {/* Main Content */}
       <div style={{ flex: 1, display: "flex", gap: "20px" }}>
-        {/* Question Form Section */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-          }}
-        >
-          <Card
-            title="Đặt câu hỏi"
-            loading={false}
-            style={{
-              flex: 1,
-            }}
-          >
-            <Form form={form} layout="vertical" onFinish={handleQuestionSubmit}>
-              <Form.Item
-                name="question"
-                rules={[{ required: true, message: "Vui lòng nhập câu hỏi" }]}
-              >
-                <TextArea
-                  rows={4}
-                  placeholder="Nhập câu hỏi của bạn về tài chính..."
-                />
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  icon={<SendOutlined />}
-                >
-                  Gửi câu hỏi
-                </Button>
-              </Form.Item>
-            </Form>
-          </Card>
-
-          <Card
-            title="Câu hỏi thường gặp"
-            loading={false}
-            style={{
-              flex: 1,
-            }}
-          >
-            <Collapse
-              accordion
-              items={[
-                {
-                  key: "1",
-                  label: "Câu hỏi 1",
-                  children: (
-                    <div style={{ padding: 12 }}>Nội dung trả lời 1</div>
-                  ),
-                },
-                {
-                  key: "2",
-                  label: "Câu hỏi 2",
-                  children: (
-                    <div style={{ padding: 12 }}>Nội dung trả lời 2</div>
-                  ),
-                },
-              ]}
-            />
-          </Card>
-        </div>
-
-        {/* AI Chat Section */}
         <Card
-          title="Trợ lý AI Tài chính"
+          title="Chat với AI"
           loading={false}
           style={{
-            width: "400px",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
           }}
@@ -303,7 +192,9 @@ const QnA = () => {
               marginBottom: "16px",
               padding: "12px",
               borderRadius: "4px",
-              background: theme === "dark" ? "#141414" : "#f5f5f5",
+              background: "white",
+              border: "1px solid #e8e8e8",
+              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
             }}
           >
             {chatMessages.length === 0 ? (
@@ -314,9 +205,7 @@ const QnA = () => {
                   padding: "24px",
                 }}
               >
-                {API_KEY
-                  ? "Hãy đặt câu hỏi về tài chính"
-                  : "Vui lòng cấu hình API key"}
+                {API_KEY ? "Hãy đặt câu hỏi" : "Vui lòng cấu hình API key"}
               </div>
             ) : (
               chatMessages.map((msg, index) => (
@@ -339,7 +228,7 @@ const QnA = () => {
                         msg.role === "user"
                           ? "#1890ff"
                           : theme === "dark"
-                          ? "#2a2a2a"
+                          ? "#e6f4ff"
                           : "#e6f7ff",
                       color: msg.role === "user" ? "#fff" : "inherit",
                     }}
@@ -362,22 +251,27 @@ const QnA = () => {
               rows={3}
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
-              placeholder="Nhập câu hỏi về tài chính..."
+              placeholder="Nhập câu hỏi"
               disabled={isChatLoading || !API_KEY}
               style={{
                 marginBottom: "8px",
+                boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
               }}
             />
-            <Button
-              type="primary"
-              htmlType="submit"
-              icon={<SendOutlined />}
-              loading={isChatLoading}
-              disabled={!API_KEY}
-              block
-            >
-              {API_KEY ? "Gửi câu hỏi" : "Vui lòng cấu hình API"}
-            </Button>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                icon={<SendOutlined />}
+                loading={isChatLoading}
+                disabled={!API_KEY}
+                block
+                size="large"
+                style={{ width: "200px" }}
+              >
+                {API_KEY ? "Gửi câu hỏi" : "Vui lòng cấu hình API"}
+              </Button>
+            </div>
           </form>
         </Card>
       </div>
